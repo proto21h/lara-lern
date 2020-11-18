@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Middleware\CheckAge;
+use App\Http\Controllers\WellcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [WellcomeController::class, 'index'])->name('home');
+
+Route::get('/check-age', function () {
+    return view('checkAge');
 });
+
+ 
+Route::post('/check-age', function () {
+    return view('checkAge');
+})->middleware(CheckAge::class);
