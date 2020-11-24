@@ -17,11 +17,12 @@ class CheckAge
      */
     public function handle(Request $request, Closure $next)
     {
-        // if ($request->user_age == '2020-11-01') {
-        //     return redirect('/');
-        // }
-        $d = Carbon::createFromFormat('d-m-Y', $request->user_age);
-        dd($d);
+        $d = Carbon::parse($request->user_age)->diff(Carbon::now())->y;
+        if ($d < 18) {
+            //return redirect('/');
+            return view('accessDenided', $d);
+        }
+ 
         return $next($request);
     }
 }
